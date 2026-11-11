@@ -29,8 +29,7 @@ export function validateBooking(raw: Record<string, unknown>): {
   if (data.name.length < 2) errors.name = "Please enter your name.";
   if (!EMAIL_RE.test(data.email)) errors.email = "Please enter a valid email address.";
   if (data.placement.length < 2) errors.placement = "Where on the body are you thinking?";
-  if (data.idea.length < 10) errors.idea = "Tell us a bit more about your idea (at least a sentence).";
-  if (data.idea.length > 3000) errors.idea = "Please keep your description under 3000 characters.";
+  if (data.idea.length === 0) errors.idea = "Please tell us about your idea.";
 
   return { data, errors };
 }
