@@ -4,12 +4,11 @@ import { useState } from "react";
 import { validateBooking, type BookingErrors } from "@/lib/booking";
 import { artists } from "@/lib/artists";
 import { btnPrimary } from "@/components/ui/styles";
+import { site } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-// Public by design: Web3Forms access keys are meant to ship in client code.
-const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
 const fieldClass =
   "w-full border-0 border-b border-white/20 bg-transparent px-0 py-3 text-ivory placeholder:text-zinc-600 transition focus:border-gold focus:outline-none focus:ring-0";
@@ -37,12 +36,6 @@ export function BookingForm({ defaultArtist = "any" }: { defaultArtist?: string 
       return;
     }
 
-    if (!ACCESS_KEY) {
-      console.error("NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is not set; see .env.example.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("submitting");
     try {
       const artistName = artists.find((a) => a.slug === data.artist)?.name ?? "No preference";
@@ -50,7 +43,7 @@ export function BookingForm({ defaultArtist = "any" }: { defaultArtist?: string 
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: ACCESS_KEY,
+          access_key: site.web3formsAccessKey,
           subject: `New tattoo request from ${data.name}`,
           from_name: "After Light Tattoo website",
           name: data.name,

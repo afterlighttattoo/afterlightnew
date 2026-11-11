@@ -4,6 +4,9 @@ export const site = {
   tagline: "Drawn in the dark. Worn in the light.",
   description:
     "After Light Tattoo is a custom tattoo studio in White Oak, PA. Meet our artists, browse their portfolios, get in touch, and shop studio merch.",
+  // Booking requests are emailed through Web3Forms. The access key decides which inbox receives them
+  // (Afterlighttattoo2026@outlook.com). It is public by design, so it lives in the code, not in env vars.
+  web3formsAccessKey: "59134e86-8026-4a1d-8305-89fec1b808a7",
   email: "" as string, // TODO
   phone: "" as string, // TODO
   address: ["1055 Lincoln Way", "White Oak, PA 15132"],
